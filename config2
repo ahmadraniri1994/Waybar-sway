@@ -1,0 +1,193 @@
+[
+    {
+        "name": "topbar",
+        "layer": "top",
+        "position": "top",
+        "height": 30,
+        "modules-right": ["network#wifi", "network#ethernet", "network#disconnected", "pulseaudio", "battery#bat1", "clock", "custom/logout"],
+        "modules-center": ["wlr/taskbar"],
+        "modules-left": ["custom/launcher", "custom/launcher2", "custom/launcher3", "sway/workspaces"],
+        "sway/workspaces": {
+            "disable-scroll": true,
+            "all-outputs": true,
+            "format": "{name}"
+        },
+        "sway/window": {
+            "format": "{app_id} ",
+            "on-click": "swaymsg kill"
+        },
+        "idle_inhibitor": {
+            "format": "{icon}",
+            "format-icons": {
+                "activated": "",
+                "deactivated": ""
+            }
+        },
+        "clock": {
+            "interval": 1,
+            "format": "<b>{:%H:%M}</b>",
+            "format-alt": "{:%d-%m-%Y}",
+            "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
+        },
+        "cpu": {
+            "format": " {usage}%",
+            "tooltip": false
+        },
+        "disk": {
+            "format": " {}%",
+            "tooltip-format": "{used} / {total} used"
+        },
+        "memory": {
+            "format": " {}%",
+            "tooltip-format": "{used:0.1f}G / {total:0.1f}G used"
+        },
+        "temperature": {
+            "critical-threshold": 80,
+            "format": "{icon} {temperatureC}°C",
+            "format-icons": ["", "", "", "", ""]
+        },
+        "backlight": {
+            "device": "intel_backlight",
+            "interval": 1,
+            "on-scroll-down": "brightlight -pd 1",
+            "on-scroll-up": "brightlight -pi 1",
+            "format": "{icon} {percent}%",
+            "format-icons": ["", ""],
+            "on-click": "wdisplays"
+        },
+        "battery#bat1": {
+            "bat": "BAT0",
+            "adapter": "AC",
+            "interval": 10,
+            "full-at": 99,
+            "states": {
+                "full": 100,
+                "good": 99,
+                "empty": 5
+            },
+            "format": "{icon} {capacity}%",
+            "format-charging": " {capacity}%",
+            "format-plugged": " {capacity}%",
+            "format-empty": "",
+            "format-full": "",
+            "format-icons": ["", "", "", "", ""]
+        },
+        "battery#bat2": {
+            "bat": "BAT1",
+            "adapter": "AC",
+            "interval": 10,
+            "states": {
+                "full": 100,
+                "good": 99,
+                "critical": 15
+            },
+            "format": "{icon} {capacity}%",
+            "format-charging": " {capacity}%",
+            "format-plugged": " {capacity}%",
+            "format-full": "",
+            "format-icons": ["", "", "", "", ""]
+        },
+        "network#disconnected": {
+            "tooltip-format": "No connection!",
+            "format-ethernet": "",
+            "format-wifi": "",
+            "format-linked": "",
+            "format-disconnected": "",
+            "on-click": "foot nmtui-connect"
+        },
+        "network#ethernet": {
+            "interface": "enp*",
+            "format-ethernet": "",
+            "format-wifi": "",
+            "format-linked": "",
+            "format-disconnected": "",
+            "tooltip-format": "{ifname}: {ipaddr}/{cidr}",
+            "on-click": "nm-connection-editor"
+        },
+        "network#wifi": {
+            "interface": "wlp*",
+            "format-ethernet": "",
+            "format-wifi": " {essid} ({signalStrength}%)",
+            "format-linked": "",
+            "format-disconnected": "",
+            "tooltip-format": "{ifname}: {ipaddr}/{cidr}",
+            "on-click": "foot nmtui-connect"
+        },
+        "network#vpn": {
+            "interface": "tun0",
+            "format": "",
+            "format-disconnected": "",
+            "tooltip-format": "{ifname}: {ipaddr}/{cidr}",
+            "on-click": "nm-connection-editor"
+        },
+        "pulseaudio": {
+            "scroll-step": 1,
+            "format": "{icon} {volume}%{format_source}",
+            "format-bluetooth": "{icon} {volume}%{format_source}",
+            "format-bluetooth-muted": " {icon}{format_source}",
+            "format-muted": " {format_source}",
+            "format-source": "  {volume}%",
+            "format-source-muted": " ",
+            "format-icons": {
+                "headphone": "",
+                "phone": "",
+                "portable": "",
+                "car": "",
+                "default": ["", "", ""]
+            },
+            "on-click": "pavucontrol"
+        },
+        "custom/weather": {
+            "return-type": "json",
+            "exec": "bash $HOME/.config/waybar/scripts/weather.sh",
+            "interval": 300,
+            "on-click": "firefox https://wttr.in"
+        },
+        "custom/logout": {
+            "tooltip": false,
+            "format": "",
+            "on-click": "wlogout"
+        },
+        "custom/launcher": {
+            "format": "",
+            "on-click": "wofi --show drun --allow-images"
+        },
+        "custom/launcher2": {
+            "format": "",
+            "on-click": "pcmanfm-qt"
+        },
+        "custom/launcher3": {
+            "format": "",
+            "on-click": "foot nmtui-connect"
+        },
+        "wlr/taskbar": {
+            "format": "{icon} {title}",
+            "icon-size": 13,
+            "tooltip": false,
+            "on-click": "activate",
+            "on-click-right": "minimize"
+        },
+    }
+//    {
+//        "name": "bottombar",
+//        "layer": "top",
+//        "position": "bottom",
+//        "height": 30,
+//        "modules-left": ["tray"],
+//        "modules-center": ["wlr/taskbar"],
+//        "tray": {
+//            "icon-size": 13,
+//            "spacing": 10
+//        },
+//        "wlr/taskbar": {
+//            "format": "{icon} {title}",
+//            "icon-size": 13,
+//            "tooltip": false,
+//            "on-click": "minimize",
+//            "on-click-right": "activate"
+//        },
+//        "sway/mode": {
+//            "format": "<span style=\"italic\">{}</span>"
+//        }
+//    }
+]
